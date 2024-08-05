@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container text-center h-100">
+    @if (User.Identity.IsAuthenticated)
+    {
+        var twofactor = ViewData["TwoFactorEnabled"];
+        @*
+    if (twofactor != null && twofactor.ToString().ToLower() == "true")
+    {
+    <a asp-action="RemoveAuthenticator" asp-controller="Account" class="btn btn-warning">Reset & Remove Two Factor Auth</a>
+    }
+    else
+    {
+    <a asp-controller="Account" asp-action="EnableAuthenticator">Setup two factor authentication</a>
+    }
+    *@
+        <br />
+
+        @if (User.IsInRole(SD.Admin))
+        {
+            <h2 class="text-success">Your role is - Admin</h2>
+        }
+        @if (User.IsInRole(SD.User))
+        {
+            <h3 class="text-success">Your role is - User</h3>
+        }
+    }
+    else
+    {
+        <br />
+        <h2 class="text-success">Not Authorized</h2>
+    }
+    <br />
+    <div class="bg-secondary text-center py-4">
+        <h2 class="text-white m-0 text-uppercase">ACCESS CHECKER</h2>
+    </div>
+    <table class="table table-bordered table-striped text-center align-baseline">
+        <tr class="table-secondary text-uppercase">
+            <th width="50%">Page</th>
+            <th width="50%">Description</th>
+            <th>Link</th>
+        </tr>
+        <tr>
+            <td>All Access</td>
+            <td>No Authorization</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="AllAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>Authorized Access</td>
+            <td>Authorized Users Only</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="AuthorizedAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>Admin Role Access</td>
+            <td>Admin Users Only</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="AdminRoleAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>User OR Admin Role Access</td>
+            <td>User or Admin Users Only</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="UserORAdminRoleAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>User AND Admin Role Access</td>
+            <td>User and Admin Users Only</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="UserANDAdminRoleAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>Admin with Create Claim Access</td>
+            <td>Admin Role with Create Claim Only</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="Admin_CreateAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>Admin with All Claims</td>
+            <td>Admin Role with Create & Edit & Delete Claims Only</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="Admin_Create_Edit_DeleteAccess">Link</a></td>
+        </tr>
+        <tr>
+            <td>Admin with All Claims Or SuperAdmin Role</td>
+            <td>Admin Role with Create & Edit & Delete Claims Only Or SuperAdmin Role</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="Admin_Create_Edit_DeleteAccess_OR_SuperAdminRole">Link</a></td>
+        </tr>
+        <tr>
+            <td>Veteran Admin</td>
+            <td>Admin With More Than 1000 Days</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="AdminWithMoreThan1000Days">Link</a></td>
+        </tr>
+        <tr>
+            <td>Is First Name Special</td>
+            <td>Is First Name Special</td>
+            <td><a class="btn btn-outline-dark" asp-controller="AccessChecker" asp-action="FirstNameAuth">Link</a></td>
+        </tr>
+    </table>
+</div>
